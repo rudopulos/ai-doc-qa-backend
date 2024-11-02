@@ -1,7 +1,6 @@
-const { PineconeClient } = require('@pinecone-database/pinecone');
+const { Pinecone } = require('@pinecone-database/pinecone');
 
-const pinecone = new PineconeClient();
-
+const pinecone = new Pinecone();
 
 const initPinecone = async () => {
     await pinecone.init({
@@ -11,4 +10,3 @@ const initPinecone = async () => {
 };
 
 module.exports = { pinecone, initPinecone };
-
