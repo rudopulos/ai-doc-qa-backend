@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const pdfParse = require('pdf-parse');
-const { pinecone, initPinecone } = require('./pinecone');  // Importă configurația Pinecone
+const { pinecone, initPinecone } = require('./pinecone'); 
 const { chunkText } = require('./utils/chunkText');
 const { generateId } = require('./utils/generateId');
 const { getEmbedding } = require('./services/embeddings');
@@ -13,13 +13,12 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 
-// Endpoint pentru încărcarea documentelor
+
 app.post('/upload', upload.single('document'), async (req, res) => {
     try {
         const file = req.file;
         if (!file) return res.status(400).send('No file uploaded.');
 
-        // Extrage textul din PDF sau din fișier text simplu
         let text = '';
         if (file.mimetype === 'application/pdf') {
             const pdfData = await pdfParse(file.buffer);
@@ -28,16 +27,15 @@ app.post('/upload', upload.single('document'), async (req, res) => {
             text = file.buffer.toString();
         }
 
-        // Împarte textul în chunk-uri
-        const chunks = chunkText(text, 500);  // 500 cuvinte per chunk
+   
+        const chunks = chunkText(text, 500);  
 
-        // Generează embeddings pentru fiecare chunk
         const embeddings = await Promise.all(chunks.map(async (chunk) => {
             const embedding = await getEmbedding(chunk);
             return { chunk, embedding };
         }));
 
-        // Salvează embeddings în Pinecone
+
         await pinecone.index({
             index: 'document-embeddings',
             vectors: embeddings.map(e => ({
@@ -54,7 +52,7 @@ app.post('/upload', upload.single('document'), async (req, res) => {
     }
 });
 
-// Inițializează Pinecone și pornește serverul
+
 const startServer = async () => {
     await initPinecone();
     app.listen(PORT, () => {
