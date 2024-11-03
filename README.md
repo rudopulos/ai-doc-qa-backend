@@ -29,3 +29,10 @@ Set up environment variables: Create a .env file in the root of the project with
 PINECONE_API_KEY=pcsk_7AXiKW_2NUh1S394w6knh9cuRM8nSHBXJG8fYrpKbTQBzRTiVEh7MYgmCjQqVNJ5h4cQoT
 PINECONE_ENVIRONMENT=aped-4627-b74a
 OPENAI_API_KEY=ysk-proj-6ftSnV94bUBS83Jvx9ckRjjs_ER5FxQ0ebH3Z9hgj0C2Kh0njALWHmvm1Kg8zbrW1_Dv9EWO2ET3BlbkFJuCVPcEf2glP5pGg-tATL5dKGuN34pgVSvmCwfQA751j1lrgBgqezBJmcA3gM0Iun6_HerUpn8A
+PORT=5000
+
+Start the server:
+node index.js
+
+Limitations
+Python Script for Topic Modeling: Unfortunately, I was unable to implement a Python script for topic modeling due to a lack of knowledge in this language.
